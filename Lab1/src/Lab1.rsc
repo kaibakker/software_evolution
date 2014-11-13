@@ -1,6 +1,7 @@
 module Lab1
 
 import Prelude;
+import util::Math;
 import lang::java::m3::Core;
 import lang::java::jdt::m3::Core;
 import lang::java::jdt::m3::AST;
@@ -28,7 +29,7 @@ map[loc, int] complexity(M3 model) =
 	(m : methodComplexity(m) | m <- methods(myModel) );
 
 // maybe add do
-int methodComplexity(loc m) {
+public int methodComplexity(loc m) {
   result = 1;
   visit (getMethodASTEclipse(m)) {
     case \while (_,_) : result += 1;
@@ -45,11 +46,38 @@ int methodComplexity(loc m) {
 }
 
 
-map[loc, int] unitSizes(M3 model) =
+public map[loc, int] unitSizes(M3 model) =
 	(m : linesOfCodeInLoc(m) | m <- methods(model));
 
+public int duplication(M3 model) {
+	map[loc, str] regels = [];
+	for (f <- files(model), regel <- readFileLines(f)) {
+		
+		regels[f(i,1)] = regel;
+		
+	}
+	//units = groups(regels, 6);
+	
+	println regels;
+	return 10;
+	//return 100 - percent(size(dup(units)), size(units));
+}
 
+public map[loc,str] regels(M3 model) {
+	map[loc, str] result = ();
 
+	for (f <- files(model)) {
+		offset = 0;
+		for (regel <- readFileLines(f)) {
+			result[f(offset,1)] = trim(regel);
+			offset += 1;
+		}
+	}
+	return result;
+}
+
+public list[str] groups(map[loc, str] lijst, int n) =
+	[("" | it + e + "\n" | str e <- lijst[i..i + n]) | i <- [0.. size(lijst) - n + 1]];
 
 
 /* UNIT TESTS */
