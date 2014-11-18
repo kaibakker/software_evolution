@@ -9,6 +9,9 @@ import lang::java::\syntax::Java15;
 
 
 
+
+
+
 public M3 myModel = createM3FromEclipseProject(|project://TestProject|);
 
 public int linesOfCode(M3 project) = (0 | it + linesOfCodeInLoc(f) | f <- files(project));
@@ -49,19 +52,40 @@ public int methodComplexity(loc m) {
 public map[loc, int] unitSizes(M3 model) =
 	(m : linesOfCodeInLoc(m) | m <- methods(model));
 
+
+
 public int duplication(M3 model) {
-	map[loc, str] regels = [];
-	for (f <- files(model), regel <- readFileLines(f)) {
-		
-		regels[f(i,1)] = regel;
-		
-	}
-	//units = groups(regels, 6);
+	int blockSize = 6;
+	list[str] regels = ([] | it + readFileLines(f) | f <- files(model));
 	
-	println regels;
-	return 10;
-	//return 100 - percent(size(dup(units)), size(units));
+	units = groups(regels, blockSize);
+	list[bool] lineNumbers = [true | x <- regels];
+	uniques = [];
+	
+	for(int i <- [0 .. size(units)]) {
+		if(units[i] in uniques) {
+			lineNumbers = markDuplicate(lineNumbers, i, blockSize);
+		} else {
+			uniques += units[i];
+		}
+	}
+	//print line numbers
+	for(int i <- [0 .. size(lineNumbers)]) {
+		println(i + 1);
+		println(lineNumbers[i]);
+	}
+	uniqueLineNumbers = [x | x <- lineNumbers, x];
+	return percent(size(uniqueLineNumbers), size(regels));
 }
+
+
+public list[bool] markDuplicate(lineNumbers, i, blockSize) {
+	for(j <- [i..i + blockSize]) {
+		lineNumbers[j] = false;
+	}
+	return lineNumbers;
+}
+
 
 public map[loc,str] regels(M3 model) {
 	map[loc, str] result = ();
@@ -76,8 +100,8 @@ public map[loc,str] regels(M3 model) {
 	return result;
 }
 
-public list[str] groups(map[loc, str] lijst, int n) =
-	[("" | it + e + "\n" | str e <- lijst[i..i + n]) | i <- [0.. size(lijst) - n + 1]];
+public list[str] groups(list[str] lijst, int n) =
+	([] | it + ("" | it + x | x <- lijst[i..i + n]) | i <- [0.. size(lijst) - n + 1]);
 
 
 /* UNIT TESTS */
