@@ -159,8 +159,8 @@ public int duplication(M3 model) {
 	  //list[str] regels = ([] | it + readFileLines(f) + "\ndjfkalsdjfl adslkfj asdkl" | f <- files(model));
 	  //.regels = [ trim(regel) | regel <- regels, !isEmptyLine(regel) ];
 	  units = ([] | it + groups(nonEmptyLines(f), blockSize) | f <- fileStrings );
-	  
-	  list[bool] lineNumbers = [ false | x <- units];
+	  println(units);
+	  list[bool] lineNumbers = [ false | x <- units] + [false, false, false, false, false, false];
 	  map[str, int] uniques = ();
 	
 			  /*
@@ -172,7 +172,7 @@ public int duplication(M3 model) {
 			  */
 	  for(int i <- [0 .. size(units)]) {
 		    if(units[i] in uniques) {
-		    	  println(units[i]);
+		    	  
 			      lineNumbers = markDuplicate(lineNumbers, i, blockSize);
 			      lineNumbers = markDuplicate(lineNumbers, uniques[ units[i] ], blockSize);
 		    } else {
@@ -185,13 +185,19 @@ public int duplication(M3 model) {
 		    println(lineNumbers[i]);
 	  }
 	  duplicateLineNumbers = size([ x | x <- lineNumbers, x ]);
-	  return percent(duplicateLineNumbers, size(lineNumbers));
+	  if(size(lineNumbers) == 0) {
+	  	  return percent(duplicateLineNumbers, size(lineNumbers));
+	  } else {
+	  	  return 100;
+	  }
 }
 
 
 public list[bool] markDuplicate(lineNumbers, i, blockSize) {
 	  for(j <- [i..i + blockSize]) {
-		    lineNumbers[j] = true;
+	  	  if(j < size(lineNumbers)) {
+		    	  lineNumbers[j] = true;
+		    }
 	  }
 	  return lineNumbers;
 }
