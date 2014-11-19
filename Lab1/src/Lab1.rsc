@@ -44,8 +44,29 @@ public str complexityEvaluation(int cc) {
   return "very high"; 
 } 
 
-public int linesOfCode(M3 project) =
-  (0 | it + linesOfCodeInLoc(f) | f <- files(project)) - numberOfCommentLines(project);
+public int unitSizeRisk(map[str, real] profile) {
+	  if (profile["M"] < 0.25 && profile["L"] < 0.01 && profile["XL"] < 0.01) return 5;
+	  if (profile["M"] < 0.30 && profile["L"] < 0.05 && profile["XL"] < 0.01) return 4;
+	  if (profile["M"] < 0.40 && profile["L"] < 0.10 && profile["XL"] < 0.01) return 3;
+	  if (profile["M"] < 0.50 && profile["L"] < 0.15 && profile["XL"] < 0.05) return 2;
+	  return 1;
+}
+
+public str unitSizeEvaluation(int regels) {
+  if (regels < 20) return "S";
+  if (regels < 50) return "M";
+  if (regels < 100) return "L";
+  return "XL";
+}
+
+public int linesOfCode(M3 project) {
+  fileStrings = filesWithoutComments(project);
+  count = 0;
+  for (f <- fileStrings) {
+    count += size( nonEmptyLines(f) );
+  }
+  return count;
+}
 
 private int linesOfCodeInLoc(loc file) = 
 	  size( [ line | line <- readFileLines(file), !isEmptyLine(line) ] );
@@ -100,18 +121,46 @@ public int methodComplexity(loc m) {
 }
 
 
-public map[loc, int] unitSizes(M3 model) =
-	  (m : linesOfCodeInLoc(m) | m <- methods(model));
+public map[str, real] unitSizes(M3 model) {
+  numberOfMethods = size( methods(model) );
+  
+  profile = ("S" : 0.0, "M" : 0.0, "L" : 0.0, "XL" : 0.0);
+  for (m <- methods(model)) {
+  		  evaluation = unitSizeEvaluation( linesOfCodeInLoc(m) );
+  		  profile[evaluation] += 1.0 / numberOfMethods; 
+  }
+  return profile;
+}
+public list[str] nonEmptyLines(str file) =
+	  [line | line <- split("\n", file) , !isEmptyLine(line)];
+	  
+public list[str] filesWithoutComments(M3 model) {
+		  result = [];
+  for (f <- files(model)) {
+	    str content_file = readFile(f);
+    set[loc] documentations = model@documentation[f];
+	    for(d <- documentations) {
+	      content_file = content_file[0..(d.offset)] + left(" ",  d.length) + content_file[(d.offset + d.length)..];
+	    }
+	    
+	    result += content_file; 
+  }
+  
+  return result;
+}
 
 
 
 public int duplication(M3 model) {
 	  int blockSize = 6;
-	  list[str] regels = ([] | it + readFileLines(f) | f <- files(model));
-	  regels = [ trim(regel) | regel <- regels, !isEmptyLine(regel) ];
-	  units = groups(regels, blockSize);
+	  fileStrings = filesWithoutComments(model);
 	  
-	  list[bool] lineNumbers = [ false | x <- regels];
+	  	  
+	  //list[str] regels = ([] | it + readFileLines(f) + "\ndjfkalsdjfl adslkfj asdkl" | f <- files(model));
+	  //.regels = [ trim(regel) | regel <- regels, !isEmptyLine(regel) ];
+	  units = ([] | it + groups(nonEmptyLines(f), blockSize) | f <- fileStrings );
+	  
+	  list[bool] lineNumbers = [ false | x <- units];
 	  map[str, int] uniques = ();
 	
 			  /*
@@ -123,19 +172,20 @@ public int duplication(M3 model) {
 			  */
 	  for(int i <- [0 .. size(units)]) {
 		    if(units[i] in uniques) {
+		    	  println(units[i]);
 			      lineNumbers = markDuplicate(lineNumbers, i, blockSize);
 			      lineNumbers = markDuplicate(lineNumbers, uniques[ units[i] ], blockSize);
 		    } else {
 			      uniques[ units[i] ] = i;
 		    }
 	  }
-	  //print line numbers
-	  //for(int i <- [0 .. size(lineNumbers)]) {
-		 //   println(i + 1);
-		 //   println(lineNumbers[i]);
-	  //}
+	  
+	  for(int i <- [0 .. size(lineNumbers)]) {
+		    println(i + 1);
+		    println(lineNumbers[i]);
+	  }
 	  duplicateLineNumbers = size([ x | x <- lineNumbers, x ]);
-	  return percent(duplicateLineNumbers, size(regels));
+	  return percent(duplicateLineNumbers, size(lineNumbers));
 }
 
 
@@ -160,9 +210,10 @@ public map[loc,str] regels(M3 model) {
 										  return result;
 }
 
-public list[str] groups(list[str] lijst, int n) =
-	([] | it + ("" | it + x | x <- lijst[i..i + n]) | i <- [0.. size(lijst) - n + 1]);
-
+public list[str] groups(list[str] lijst, int n) {
+		  if (size(lijst) < 6) return [];
+	  return ([] | it + ("" | it + x | x <- lijst[i..i + n]) | i <- [0.. size(lijst) - n + 1]);
+}
 
 /* UNIT TESTS */
 test bool locTest() = linesOfCode(myModel) == 5;
