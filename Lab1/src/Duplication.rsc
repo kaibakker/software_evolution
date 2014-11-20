@@ -26,7 +26,7 @@ public int duplication(M3 model) {
 	allFiles = 	( "" | it + f | f <- fileStrings );
 	allLines = nonEmptyLines(allFiles);
 	
-	println(size(allLines));
+	//println(size(allLines));
 	
 	units = groups(allLines, blockSize);
 	//list[str] regels = ([] | it + readFileLines(f) + "\ndjfkalsdjfl adslkfj asdkl" | f <- files(model));

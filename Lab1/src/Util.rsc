@@ -45,4 +45,5 @@ public str stars(num n) {
 	return left("", round(n), "★");
 }
 
+// add more
 test bool nonEmptyLinesTest() = size(nonEmptyLines((myModel))) == 15;

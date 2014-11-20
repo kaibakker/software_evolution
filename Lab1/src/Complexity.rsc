@@ -30,6 +30,7 @@ public int methodComplexity(loc m) {
 	result = 1;
 	visit (getMethodASTEclipse(m)) {
 		case \while (_,_) : result += 1;
+		case \do (_,_) : result += 1;
 		case \if (_,_) : result +=1;
 		case \if (_,_,_) : result +=1;
 		case \for (_,_,_) : result += 1;

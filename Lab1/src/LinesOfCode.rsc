@@ -20,7 +20,7 @@ public int linesOfCode(M3 project) {
 	fileStrings = filesWithoutComments(project);
 	count = 0;
 	for (f <- fileStrings) {
-		println( nonEmptyLines(f) );
+		//println( nonEmptyLines(f) );
 		count += size( nonEmptyLines(f) );
 	}
   	return count;
