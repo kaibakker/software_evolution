@@ -1,15 +1,27 @@
 module LinesOfCode
 
+import Util;
+import Prelude;
 
-public int linesOfCode(M3 project) = (0 | it + linesOfCodeInLoc(f) | f <- files(project));
+import lang::java::m3::Core;
+import lang::java::jdt::m3::Core;
+import lang::java::jdt::m3::AST;
+import lang::java::\syntax::Java15;
 
-private int linesOfCodeInLoc(loc file) = 
-	size( [ line | line <- readFileLines(file), !isComment(line), !isEmptyLine(line) ] );
+public int volumeRisk(int volume) {
+ 	if (volume < 66000) return 5;
+ 	if (volume < 246000) return 4;
+ 	if (volume < 665000) return 3;
+ 	if (volume < 1310000) return 2;
+ 	return 1;
+}
 
-private bool isEmptyLine(str line) =
-	isEmpty( trim(line) );
-
-private bool isComment(str line) =
-	startsWith( trim(line), "//" );
-
-
+public int linesOfCode(M3 project) {
+	fileStrings = filesWithoutComments(project);
+	count = 0;
+	for (f <- fileStrings) {
+		//println( nonEmptyLines(f) );
+		count += size( nonEmptyLines(f) );
+	}
+  	return count;
+}
