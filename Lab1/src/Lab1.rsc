@@ -162,7 +162,11 @@ public int duplication(M3 model) {
 	  println(units);
 	  list[bool] lineNumbers = [ false | x <- units] + [false, false, false, false, false, false];
 	  map[str, int] uniques = ();
-	
+	  /*
+	  	  volgens mij werkt het nog niet helemaal goed,
+	  	  het problleem is dat units alle blokken zijn,
+	  	  maar nu we de files los bekijken 
+	  	  klopt lineNumbers niet meer
 			  /*
 			    The truc is als volgt: we doorlopen de stringblokken in volgorde.
 			    Als een blok nog niet bestaat, stoppen we het in een map unique, met

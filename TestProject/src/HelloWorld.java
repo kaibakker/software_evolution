@@ -1,56 +1,34 @@
 
 public class HelloWorld {
-  public static void main(String[] args) {
-    // Een comment
-    if(args[0] == "Hoi") {
-      System.out.println("snor");
-    }
+
     
-    System.out.println("Hello World");
-  }
-  
-  public static void main2(String[] args) {
-    // Een comment
-    System.out.println("Hello World");
-  }
-  public static String bla(int n) {
-    if(n%2 == 0) {
-      if(n%4 == 0) {
-        
-        return "vierfout";
-      } else {
-        return "tweefout";
+    public static boolean contains(int[] a, int b){
+      for (int i : a) {
+        if (i==b) {
+           b += 1;
+           b = b - 1;
+           
+           b *= 1;
+           b /= 1;
+           System.out.println(b);
+           
+           System.out.println(a);
+           int j = 4;
+           for(;i <= j;) {
+             System.out.println(a);
+             j ++;
+           }
+           
+           i = b * 3;
+           
+          return true;
+        }
       }
-    } else {
-      return "eenfout";
-    }
-  }
-  
-  
-  public static String bla2(int n) {
-    if(n%2 == 0) {
-      if(n%4 == 0) {
-        
-        return "vierfout";
-      } else {
-        return "tweefout";
+      
+      for(int k = 0; k < 2; k ++) {
+        System.out.println(k);
       }
-    } else {
-      return "eenfout";
+      return false; 
     }
-  }
-  
-  
-  public static String bla3(int n) {
-    if(n%2 == 0) {
-      if(n%4 == 0) {
-        
-        return "vierfout";
-      } else {
-        return "tweefout";
-      }
-    } else {
-      return "eenfout";
-    }
-  }
+ 
 }
