@@ -10,6 +10,9 @@ import lang::java::\syntax::Java15;
 public M3 testProject = createM3FromEclipseProject(|project://TestProject|);
 public M3 testDuplicationProject = createM3FromEclipseProject(|project://TestDuplicationProject|);
 
+data Matrix = matrix(int r, int c, int val);
+
+Matrix d = matrix(0, 0, 1);
 
 public list[list[real]] similarities(M3 project) {
 	countMatrices = [ countMatrix(m) | m <- methods(project) ];
@@ -25,10 +28,9 @@ public real matrixSimilarity(list[list[int]] a, list[list[int]] b) {
 }
 
 public real hungarian(list[list[int]] m) {
-	mapper(m, int (int row) {
-		minimum = min(row);
-		return mapper(row, int (int y){return y - minimum;});
-	});
+
+	[ [entity - min(row) | entity <- row] | row <- m];
+	return 10.0;
 }
 
 /*
