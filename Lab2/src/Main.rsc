@@ -17,14 +17,17 @@ public list[list[real]] similarities(M3 project) {
 
 
 
-
-
 public real matrixSimilarity(list[list[int]] a, list[list[int]] b) {
 	return 0.0;
 }
 
 public real vectorSimilarity(list[int] a, list[int] b) {
-	return 0.0;
+	int size = max(length(a), length(b))
+	result = 0;
+	for(i = 0; i < size; i++) {
+		result = a[i]*b[i];
+	}
+	return result;
 }
 
 
