@@ -18,7 +18,6 @@ int POSITION_METHOD_CALLS = 3;
 
 map[str,list[int]] matrix;
 
-
 public set[str] variablesInExpression(value method) {
 	set[str] variables = {};
 	visit (method) {
