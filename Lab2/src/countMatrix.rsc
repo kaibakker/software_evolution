@@ -36,7 +36,7 @@ public set[str] namesInExpression(Expression expr) {
 	return names;
 }
 
-public map[str,list[int]] countMatrix(loc methodLoc) {
+public list[list[int]] countMatrix(loc methodLoc) {
 	method = getMethodASTEclipse(methodLoc);
 	
 	set[str] variables = variablesInExpression(method);
@@ -71,9 +71,12 @@ public map[str,list[int]] countMatrix(loc methodLoc) {
   	// countThirdLevelLoop(method); //12
   	//
   	
-	return matrix;
+	return transformToMatrix(matrix);
 }
 
+private list[list[int]] transformToMatrix(noMatrix) {
+	return [noMatrix[k] | k <- noMatrix];
+}
 public void addOneForName(str name, int position) {
 	if (name in matrix) {
 		matrix[name][position] += 1;
