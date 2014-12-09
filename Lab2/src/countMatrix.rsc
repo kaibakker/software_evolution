@@ -16,7 +16,7 @@ int POSITION_ADD = 1;
 int POSITION_MULTIPLY = 2;
 int POSITION_METHOD_CALLS = 3;
 
-map[str,list[int]] matrix;
+public map[str,list[int]] matrix;
 
 public set[str] variablesInExpression(value method) {
 	set[str] variables = {};
@@ -40,7 +40,9 @@ public list[list[int]] countMatrix(loc methodLoc) {
 	method = getMethodASTEclipse(methodLoc);
 	
 	set[str] variables = variablesInExpression(method);
-	
+	if(variables == {}) {
+		return [[]];
+	}
   	matrix = ( var : [0,0,0,0,0,0,0,0,0,0,0,0,0] | var <- variables);
   	
   	countUses(method); //0
@@ -78,6 +80,7 @@ private list[list[int]] transformToMatrix(noMatrix) {
 	return [noMatrix[k] | k <- noMatrix];
 }
 public void addOneForName(str name, int position) {
+	println("KOE");
 	if (name in matrix) {
 		matrix[name][position] += 1;
 	}

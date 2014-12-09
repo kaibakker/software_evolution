@@ -94,17 +94,19 @@ public int vectorSimilarity(list[int] a, list[int] b) {
 }
 
 public real distance(list[int] a, list[int] b) {
-	  int length = min( size(a), size(b) );
+	  int length = min( [size(a), size(b)] );
+	  println(a);
+	  println(b);
 	  
+	  x = (0 | it + (a[i] - b[i])*(a[i] - b[i]) | i <- [0..length]) ;
+	  println(x);
 	  
-	  x = sqrt( (0 | it + a[i] | i <- [0..length]) );
-	  
-	  return x;
+	  return x*1.0;
 }
 
 public real vectorLength(list[int] a) {
 	  origin = [ 0 | x <- a ];
-	  return distance(a, origin); 
+	  return distance(a, [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]); 
 }
 
 test bool testDistance() =
