@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Based on a [2011 paper of Yuan and Guo](#References), we have made a tool that detects type III clones.
+Based on a [2011 paper of Yuan and Guo](#references), we have made a tool that detects type III clones.
 Because we use a metrics based approach, we detect clones that conventional methods cannot: variables names don't matter,
 the order of statements does not matter, lines can be added or deleted. The intended use of this tool is plagiarism detection.
 
