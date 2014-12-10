@@ -16,7 +16,7 @@ The resulting table is called the count matrix.
 
 By comparing two methods, we get a similarity score. If this score exceeds a threshold, the methods are considered clones.
 
-An example: 
+### An example
 
 ```java
 public static int sumOfSquares(int[] numbers) {
@@ -44,6 +44,13 @@ For each variable, we currently tally:
 10. number of times it is defined by an expression which has constants in it
 
 For the above method, we would get:
+```
+numbers:
+len:
+sum:
+i:
+```
+
 
 
 
