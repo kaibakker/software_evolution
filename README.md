@@ -2,9 +2,9 @@
 
 ## Introduction
 
-Based on a [2011 paper of Yuan and Guo](#references), we have made a tool that detects type III clones.
+Based on a [2011 paper of Yuan and Guo](#references), we made a tool that detects type III clones.
 Because we use a metrics based approach, we detect clones that conventional methods cannot: variables names don't matter,
-the order of statements does not matter, lines can be added or deleted. The intended use of this tool is plagiarism detection.
+the order of statements does not matter, lines can be added or deleted. The intended use of this tool is detecting plagiarism.
 
 ## Overview of method
 
@@ -43,7 +43,7 @@ For each variable, we currently tally:
 9. number of times it is defined by a multiply or divide operation
 10. number of times it is defined by an expression which has constants in it
 
-For the above method, we would get:
+For the above method, we get:
 
 ```
 numbers:
@@ -55,7 +55,7 @@ i:
 ### Comparison of two methods
 From the two count matrices of the methods, we construct a new matrix that
 has on the x,y'th position the distance between the count vector of variable x of method 1 and variable y of method 2.
-Currently we use the euclidian distance.
+Currently we use euclidian distance.
 
 From this matrix, we compute a similarity value of the two methods, using a quick and dirty version of the [Hungarian algorithm](http://en.wikipedia.org/wiki/Hungarian_algorithm).
 
