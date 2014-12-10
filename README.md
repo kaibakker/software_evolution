@@ -30,5 +30,23 @@ public static int sumOfSquares(int[] numbers) {
 }
 ```
 
+For each variable, we currently tally:
+
+1. number of uses
+2. number of additions and subtractions it appears in
+3. number of multiplications and divisions it appears in
+4. number of times invoked as a parameter
+5. number of times it appears in an if-statement
+6. number of times it appears as an array subscript
+7. number of times it is defined
+8. number of times it is defined by an add or subtract operation
+9. number of times it is defined by a multiply or divide operation
+10. number of times it is defined by an expression which has constants in it
+
+For the above method, we would get:
+
+
+
+
 
 Yuan, Y. & Guo, Y. CMCD: Count Matrix based Code Clone Detection, 2011 18th Asia-Pacific Software Engineering Conference.
