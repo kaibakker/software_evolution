@@ -1,34 +1,47 @@
 
 public class HelloWorld {
-
-    
-    public static boolean contains(int[] a, int b){
-      for (int i : a) {
-        if (i==b) {
-           b += 1;
-           b = b - 1;
-           
-           b *= 1;
-           b /= 1;
-           System.out.println(b);
-           
-           System.out.println(a);
-           int j = 4;
-           for(;i <= j;) {
-             System.out.println(a);
-             j ++;
-           }
-           
-           i = b * 3;
-           
-          return true;
-        }
+    public static int sumOfSquares(int[] numbers) {
+      int len = numbers.length;
+      int sum = 0;
+      for(int i = 0; i != len; i += 1) {
+        sum += numbers[i] * numbers[i];
       }
       
-      for(int k = 0; k < 2; k ++) {
-        System.out.println(k);
-      }
-      return false; 
+      return sum;
     }
- 
+    
+    // 0
+    public static int somVanKwadraten(int[] getallen) {
+      int lengte = getallen.length;
+      int som = 0;
+      for(int j = 0; j != lengte; j += 1) {
+        som += getallen[j] * getallen[j];
+      }
+      
+      return som;
+    }
+    
+    // 0.3
+    public static int sumOfCubes(int[] numbers) { 
+      
+      int sum = 0;
+      for(int i = 0; i != numbers.length; i += 1) {
+        sum += numbers[i] * numbers[i] * numbers[i];
+      }
+      
+      return sum;
+    }
+    
+    // 0.1
+    public static int sum(int[] numbers) {
+      int lengte = numbers.length;
+      int sum = 0;
+      for(int i = 0; i != lengte; i += 1) {
+        sum += numbers[i];
+      }
+      
+      return sum;
+    }
 }
+
+

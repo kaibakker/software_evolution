@@ -1,4 +1,5 @@
-module countMatrix
+
+module CountMatrix
 import Prelude;
 import util::Math;
 
@@ -80,7 +81,7 @@ private list[list[int]] transformToMatrix(noMatrix) {
 	return [noMatrix[k] | k <- noMatrix];
 }
 public void addOneForName(str name, int position) {
-	println("KOE");
+	
 	if (name in matrix) {
 		matrix[name][position] += 1;
 	}
