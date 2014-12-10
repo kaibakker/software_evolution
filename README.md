@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Based on a 2011 paper of Yuan and Guo, we have made a tool that detects type III clones.
+Based on a [2011 paper of Yuan and Guo](#References), we have made a tool that detects type III clones.
 Because we use a metrics based approach, we detect clones that conventional methods cannot: variables names don't matter,
 the order of statements does not matter, lines can be added or deleted. The intended use of this tool is plagiarism detection.
 
@@ -55,12 +55,14 @@ i:
 ### Comparison of two methods
 From the two count matrices of the methods, we construct a new matrix that
 has on the x,y'th position the distance between the count vector of variable x of method 1 and variable y of method 2.
-From this matrix, we compute a similarity value of the two methods, using a quick and dirty version of the [Hungarion algorithm](http://en.wikipedia.org/wiki/Hungarian_algorithm).
+Currently we use the euclidian distance.
+
+From this matrix, we compute a similarity value of the two methods, using a quick and dirty version of the [Hungarian algorithm](http://en.wikipedia.org/wiki/Hungarian_algorithm).
 
 ## Examples of clones
 The following functions are all considered clones to the above `sumOfSquares` function.
 
-Considered identical:
+Considered identical (all variable names and order changed):
 
 ```java
 public static int somVanKwadraten(int[] getallen) {
@@ -88,7 +90,6 @@ public static int sum(int[] numbers) {
 }
 ```
 
-
-
+## References
 
 Yuan, Y. & Guo, Y. CMCD: Count Matrix based Code Clone Detection, 2011 18th Asia-Pacific Software Engineering Conference.
