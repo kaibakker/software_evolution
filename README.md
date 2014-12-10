@@ -57,6 +57,37 @@ From the two count matrices of the methods, we construct a new matrix that
 has on the x,y'th position the distance between the count vector of variable x of method 1 and variable y of method 2.
 From this matrix, we compute a similarity value of the two methods, using a quick and dirty version of the [Hungarion algorithm](http://en.wikipedia.org/wiki/Hungarian_algorithm).
 
+## Examples of clones
+The following functions are all considered clones to the above `sumOfSquares` function.
+
+Considered identical:
+
+```java
+public static int somVanKwadraten(int[] getallen) {
+  int lengte = getallen.length;
+  int som = 0;
+  for(int j = 0; j != lengte; j += 1) {
+    som += getallen[j] * getallen[j];
+  }
+  
+  return som;
+}  
+```
+
+clone:
+
+```
+public static int sum(int[] numbers) {
+  int lengte = numbers.length;
+  int sum = 0;
+  for(int i = 0; i != lengte; i += 1) {
+    sum += numbers[i];
+  }
+  
+  return sum;
+}
+```
+
 
 
 
