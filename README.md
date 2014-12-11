@@ -96,6 +96,9 @@ public static int sum(int[] numbers) {
 ## Visualisation
 The tool outputs a table with the similarities between all methods. The cells are color coded: white means a similarity value below the threshold. 
 
+![Alt text](/screenshot.png?raw=true "Optional Title")
+
+
 ## Discussion and limitations
 - We do not detect multiple method clones.
 - We have not implemented the following counts for method variables:
