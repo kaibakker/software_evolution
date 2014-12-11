@@ -60,7 +60,7 @@ Currently we use euclidean distance.
 From this matrix, we compute a similarity value of the two methods, using a quick and dirty version of the [Hungarian algorithm](http://en.wikipedia.org/wiki/Hungarian_algorithm).
 
 ### Clone classes
-We consider methods to be in the same clone class if their similarity score is 1.0, i.e. the same counts on all variables. For any other similarity, clone classes are not well defined, a similarity less than 1.0 is not an equivalence relation.
+We consider methods to be in the same clone class if their similarity score is 1.0, i.e. the same counts on all variables. For any other similarity, clone classes are not well defined, since a similarity less than 1.0 is not an equivalence relation.
 
 ## Examples of clones
 The following functions are all considered clones to the above `sumOfSquares` function.
@@ -93,7 +93,24 @@ public static int sum(int[] numbers) {
 }
 ```
 
-## Discussion
+## Discussion and limitations
+Preliminary limitations:
+
+- We do not detect multiple method clones.
+- We have not implemented the following counts for method variables:
+  1. occurences of variable in a first-level loop
+  2. in a second-level loop
+  3. in a third-level loop or deeper
+- A metrics based approach fails on small methods. For example, getters and setters
+  are considered the same methods. However, ordinary clone detectors also typically limit a clone
+  to at least 6 lines of code. To limit the number of false positives, we use parameters `minimumNumberOfVariables`
+  (typically 2) and `minimumNumberOfLines` (typically 6) to limit eligible methods.
+
+We do not detect multiple method clones. We have not done sufficient calibration to make a recommendation for a threshold value for the similarity score. We count clones between 0.85 and 1.0 similarity score. A lower threshold gives too many false positives. But, a lot of the false positives occur in small methods (small amount of variables and / or low counts.) It makes sense to make the threshold a function of count matrix size: for big methods, use a lower threshold than for small methods.
+
+For method variables, we do not currently count:
+
+
 
 ## References
 
