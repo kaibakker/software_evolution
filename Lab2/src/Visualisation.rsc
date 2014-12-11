@@ -7,7 +7,7 @@ import util::Editors;
 
 import Prelude;
 
-public real threshold = 0.4;
+public real threshold = 0.2;
 
 public str placeholder = "Methode 1 \nMethode 2";
 
@@ -43,4 +43,10 @@ public Color colorBox(real similarity) {
 		return color("Turquoise", 1.0 - similarity);		
 	}
 }
+
+test bool testColorBox1() =
+	color("White") == colorBox(1.0);
+test bool testColorBox3() =
+	color("LightCoral") == colorBox(0.0);
+	
 

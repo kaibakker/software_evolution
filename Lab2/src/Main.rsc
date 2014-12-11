@@ -51,9 +51,7 @@ public real matrixSimilarity(list[list[int]] a, list[list[int]] b) {
 	if (abs(numberOfRows - numberOfColumns) > maxVariableDifference) { return 1.0; }
 		
 	matchingMatrix = [ [ vectorSimilarity(x, y) | x <- a ] | y <- b ]; 
-	//println(a);
-	//println(b);
-	//println(matchingMatrix);
+
 	
 	// map result of hongarion onto [0, 1]
 	return hungarian(matchingMatrix) / max([numberOfRows, numberOfColumns]);
@@ -85,7 +83,9 @@ public real hungarian(list[list[real]] original) {
 }
 
 public real vectorSimilarity(list[int] a, list[int] b) {
-	  if (vectorLength(a) > 2 * vectorLength(b) || vectorLength(b) > 2 * vectorLength(a)) {
+	length_a = vectorLength(a);
+	length_b = vectorLength(b);
+	  if (length_a > 2 * length_b || length_b > 2 * length_a) {
 		    return 1.0;
 	  }
 	  // we map the vector distance to a monotonic function with range [0..1]
@@ -108,11 +108,21 @@ public real wortel(waarde) {
 }
 
 public real vectorLength(list[int] a) {
-	return distance(a, [0,0,0,0,0,0,0,0,0,0,0,0,0]); 
+	return wortel((0 | it + x*x | x <- a)); 
 }
 
+test bool testWortelZero() =
+	wortel(0) == 0.0;
 
-
+test bool testWortelFour() = 
+	wortel(4) == 2.0;
+	
+test bool testWortelArb(int x) = 
+	x == 0 || wortel(abs(x)) == sqrt(abs(x));
+	
+test bool testMatrixSimilarity() =
+	matrixSimilarity([[1]], [[2]]) == 0.5;
+	
 test bool testDistance() =
 	sqrt(2) == distance([1,0,0], [0,0,1]);
 
@@ -135,58 +145,3 @@ test bool testHungarian2() =
 	hungarian([[10.0, 100.0], [100.0, 10.0], [100.0, 100.0]])  == 20.0;
 
 
-
-	//m = [ [entity - min(row) | entity <- row] | row <- original];
-	
-	
-	
-//	  all_rows = [0..size(original)];
-//	  all_cols = [0..size(original[0])];
-//	  //1: minify per row
-//	  m = [ [entity - min(row) | entity <- row] | row <- original];
-//	
-//	  //2: minify per column
-//	  for(c <- all_cols) {
-//		    minimum = min([m[r][c] | r <- all_rows]);
-//
-//		    for(r <- all_rows) m[r][c] -= minimum;
-//	  }
-//	
-	
-	//rows = [0..size(original)];
-//	
-//	  while(true) {
-//		    //3: Cover all zeros with a minimum number of lines
-//		    columns = [];
-//		    rows = [];
-//			zeros = [<r,c> | <r,c,0.0> <- matrix];
-//		    for(row_number <- all_rows) {
-//			      zeros = [<r,c> | <r,c,0.0> <- matrix, !(r in rows), !(c in columns), r == row_number];
-//			      if(size(zeros) >= 2) {
-//  				      rows += row_number;
-//			      } else if([<_, column_number>] := zeros) {
-//				        columns += column_number;
-//			      }
-//		    }
-//
-//		    
-//		    if (size(columns) + size(rows) < min([size(original), size(original[0])])) {
-//		    	  // kan empty list worden
-//			      minimum = min([v | <r,c,v> <- matrix, !(r in rows), !(c in columns)]);
-//			      matrix = [<r, c, v - minimum> | <r,c,v> <- matrix];
-//			      matrix = [<r, c, c in columns ? v + minimum : v> | <r,c,v> <- matrix];
-//			      matrix = [<r, c, r in rows ? v + minimum : v> | <r,c,v> <- matrix];
-//		    } else {
-//			      //finished
-//			      cords = {e | row_number <- all_rows, [e] := [<r,c> | <r,c,0.0> <- matrix, r == row_number]}
-//				            + {e | col_number <- all_cols, [e] := [<r,c> | <r,c,0.0> <- matrix, c == col_number]};
-//				            
-//			      // weet niet zeker of dit goed werkt
-//			      rows_used = [r | <r,c> <- cords];
-//			      columns_used = [c | <r,c> <- cords];
-//			      cords += {<r,c> | <r,c,0.0> <- matrix, ! (r in rows_used), ! (c in columns_used)};
-//			      
-//			      
-//			      return (0.0 | it + original[r][v] | <r,v> <- cords);
-//		    }
-//	  }

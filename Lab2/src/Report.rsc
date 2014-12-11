@@ -3,7 +3,7 @@ module Report
 import Prelude;
 import util::Math;
 
-public real threshold = 0.4;
+public real threshold = 0.2;
 
 public void createReport(list[list[real]] matrix, list[loc] methodNames, list[set[loc]] cloneClasses) {
 	println("Hi, we are going to detect clones in a codebase for you!");
