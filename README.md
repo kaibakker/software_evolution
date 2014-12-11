@@ -106,11 +106,9 @@ Preliminary limitations:
   to at least 6 lines of code. To limit the number of false positives, we use parameters `minimumNumberOfVariables`
   (typically 2) and `minimumNumberOfLines` (typically 6) to limit eligible methods.
 
-We do not detect multiple method clones. We have not done sufficient calibration to make a recommendation for a threshold value for the similarity score. We count clones between 0.85 and 1.0 similarity score. A lower threshold gives too many false positives. But, a lot of the false positives occur in small methods (small amount of variables and / or low counts.) It makes sense to make the threshold a function of count matrix size: for big methods, use a lower threshold than for small methods.
+### Calibration of threshold value
 
-For method variables, we do not currently count:
-
-
+We have not done sufficient calibration to make a recommendation for a threshold value for the similarity score. We count clones between 0.85 and 1.0 similarity score. A lower threshold gives too many false positives. But, a lot of the false positives occur in small methods (small amount of variables and / or low counts.) It makes sense to make the threshold a function of count matrix size: for big methods, use a lower threshold than for small methods. In our experience, for small methods (2 or 3 variables) the threshold should be around 0.85 - 0.9. For bigger methods, it can be as low as 0.6. This is not done in the paper, but it should improve accuracy.
 
 ## References
 
