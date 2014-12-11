@@ -46,10 +46,10 @@ For each variable, we currently tally:
 For the above method, we get:
 
 ```
-numbers:
-len:
-sum:
-i:
+numbers:  [4,0,1,0,0,0,0,2,0,0,0,0,0]
+len: [2,0,0,0,0,0,0,0,0,0,0,0,0]
+sum:  [3,0,1,0,0,0,0,1,0,0,0,0,0]
+i: [5,0,0,0,0,2,0,1,0,0,0,0,0]
 ```
 
 ### Comparison of two methods
@@ -94,10 +94,11 @@ public static int sum(int[] numbers) {
 ```
 
 ## Visualisation
-The tool outputs a table with the similarities between all methods. The cells are color coded: white means a similarity value below the threshold. 
+The tool outputs a table with the similarities between all methods. The cells are color coded: white means a similarity value below the threshold. Red means a similarity value of 1.0: the two methods have the same metrics. Different shades of blue indicate values between the threshold and 1.0.
 
 ![Alt text](/screenshot.png?raw=true "Optional Title")
 
+The cells are clickable. Both file locations are opened in the Eclipse editor. This allows the user to easily spot and inspect methods on plagiarism.
 
 ## Discussion and limitations
 - We do not detect multiple method clones.
