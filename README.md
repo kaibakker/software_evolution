@@ -94,11 +94,9 @@ public static int sum(int[] numbers) {
 ```
 
 ## Visualisation
-
+The tool outputs a table with the similarities between all methods. The cells are color coded: white means a similarity value below the threshold. 
 
 ## Discussion and limitations
-Preliminary limitations:
-
 - We do not detect multiple method clones.
 - We have not implemented the following counts for method variables:
   1. occurences of variable in a first-level loop
@@ -106,7 +104,7 @@ Preliminary limitations:
   3. in a third-level loop or deeper
 - A metrics based approach fails on small methods. For example, getters and setters
   are considered the same methods. However, ordinary clone detectors also typically limit a clone
-  to at least 6 lines of code. To limit the number of false positives, we use parameters `minimumNumberOfVariables`
+  to at least 6 lines of code. We use parameters `minimumNumberOfVariables`
   (typically 2) and `minimumNumberOfLines` (typically 6) to limit eligible methods.
 
 ### Calibration of threshold value
