@@ -81,7 +81,7 @@ public static int somVanKwadraten(int[] getallen) {
 
 clone:
 
-```
+```java
 public static int sum(int[] numbers) {
   int lengte = numbers.length;
   int sum = 0;
