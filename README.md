@@ -93,6 +93,9 @@ public static int sum(int[] numbers) {
 }
 ```
 
+## Visualisation
+
+
 ## Discussion and limitations
 Preliminary limitations:
 
