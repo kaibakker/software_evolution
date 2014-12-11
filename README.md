@@ -6,7 +6,7 @@ Based on a [2011 paper of Yuan and Guo](#references), we made a tool that detect
 Because we use a metrics based approach, we detect clones that conventional methods cannot: variables names don't matter,
 the order of statements does not matter, statements can be added or deleted. The intended use of this tool is detecting plagiarism.
 
-## Overview of method
+## Overview of approach
 
 We analyze code on method level only.
 
@@ -16,7 +16,7 @@ The resulting table is called the count matrix.
 
 By comparing two methods, we get a similarity score. If this score exceeds a threshold, the methods are considered clones.
 
-### An example
+### An example of computing a count matrix
 
 ```java
 public static int sumOfSquares(int[] numbers) {
